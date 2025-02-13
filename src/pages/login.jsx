@@ -4,7 +4,6 @@ import { useState } from "react";
 import Button from "../components/button";
 import HeaderText from "../components/h1";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 const Container = styled.div`
   width: 100%;
@@ -46,23 +45,6 @@ const Login = () => {
   const [err, setErr] = useState("");
   const navigate = useNavigate();
 
-  const fechData = async () => {
-    try {
-      const resp = await axios.post(
-        "http://localhost:8080/api/auth/login",
-        { email: email, password: pwd },
-        {
-          withCredentials: true,
-        }
-      );
-      // localStorage.setItem("loggedin", true);
-      navigate("/");
-    } catch (error) {
-      // navigate("/login");
-      setErr("invalid Email or Password");
-      console.log(error);
-    }
-  };
 
   return (
     <Container>
@@ -80,7 +62,7 @@ const Login = () => {
         <Form
           onSubmit={(e) => {
             e.preventDefault();
-            fechData();
+            navigate('/')
           }}
         >
           <Input

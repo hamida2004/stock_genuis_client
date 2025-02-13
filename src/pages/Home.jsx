@@ -3,9 +3,8 @@ import Button from "../components/button";
 import styled from "styled-components";
 import Nav from "../components/nav";
 import Item from "../components/item";
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import Modal from "../components/modal";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
@@ -46,67 +45,23 @@ const Home = () => {
       "Are you sure you want to delete this product ?"
     );
     if (confirm) {
-      try {
-        const resp = await axios.delete(`http://localhost:8080/${id}`, {
-          withCredentials: true,
-        });
-        console.log(resp);
-
-      } catch (error) {
-        alert(`unable to delete the product with id : ${id}`);
-        console.log(error);
-      }
+      return
     } else {
       return;
     }
   };
   const [info, setInfo] = useState(null);
   const handleView = async (id) => {
-    try {
-      const resp = await axios.get(`http://localhost:8080/${id}`, {
-        withCredentials: true,
-      });
-      console.log(resp);
-      setInfo(resp.data);
-      setDisabled(true);
-      setShowCreate(true);
-    } catch (error) {
-      alert("something went wrong !");
-      console.log(error);
-    }
+    
   };
   const handleUpdate = async (id) => {
 
-    try {
-      const resp = await axios.get(`http://localhost:8080/${id}`, {
-        withCredentials: true,
-      });
-      setDisabled(false)
-      setInfo(resp.data);
-      setShowCreate(true);
-    } catch (error) {
-      alert("something went wrong !");
-      console.log(error);
-    }
+   
   };
   const [list, setList] = useState([]);
   const navigate = useNavigate();
   const [showCreate, setShowCreate] = useState(false);
-  useEffect(() => {
-    const fechData = async () => {
-      try {
-        const resp = await axios.get("http://localhost:8080/", {
-          withCredentials: true,
-        });
-        console.log(resp);
-        setList(resp.data);
-      } catch (error) {
-        navigate("/login");
-        console.log(error);
-      }
-    };
-    fechData();
-  }, [handleClose]);
+
   return (
     <>
       <Nav />

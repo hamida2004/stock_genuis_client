@@ -3,7 +3,6 @@ import ImageSide from "../components/imageSide";
 import { useState } from "react";
 import Button from "../components/button";
 import HeaderText from "../components/h1";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
@@ -46,23 +45,6 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
   const[err,setErr] = useState('')
-  const fechData = async () => {
-    try {
-      const resp = await axios.post(
-        "http://localhost:8080/api/auth/register",
-        {username:name, email: email, password: pwd },
-        {
-          withCredentials: true,
-        }
-      );
-      console.log(resp.data);
-      navigate('/login')
-    } catch (error) {
-      setErr("user with this email already exists !")
-      // navigate("/login");
-      console.log(error);
-    }
-  };
 
   return (
     <Container>
@@ -79,7 +61,7 @@ const Signup = () => {
         <Form
           onSubmit={(e) => {
             e.preventDefault();
-            fechData();
+            navigate('/login')
           }}
         >
           <Input
